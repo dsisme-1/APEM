@@ -1,0 +1,44 @@
+# =========================================================================
+# APEM (AI-Powered Ecoacoustic Monitor) Configuration
+# Update: 2 Juli 2026
+# =========================================================================
+
+model:
+  path:   "models/BirdNET_GLOBAL_6K_V2.4_Model_FP16.tflite" #"models/CustomClassifier.tflite"     #"models/CustomClassifier-replace.tflite" 
+  labels: "models/BirdNET_GLOBAL_6K_V2.4_Model_FP16_Labels.txt" #"models/CustomClassifier_Labels.txt"  # "models/CustomClassifier-replace_Labels.txt" 
+
+audio:
+  sample_rate: 48000
+  chunk_duration: 3        # detik per bingkai analisis (BirdNET standar)
+  mono: true
+
+inference:
+  threshold: 0.60
+  top_k: 5
+
+monitor:
+  enabled: false           # Ubah ke true via dashboard untuk mengaktifkan mic
+  mode: "continuous"       # Pilihan: continuous / duty_cycle
+  record_duration: 3       # Durasi aktif merekam mic (detik)
+  interval: 10             # Jeda tidur CPU dalam mode duty_cycle (detik)
+  scheduler:
+    enabled: false
+    start: "05:00"
+    stop: "18:00"
+
+lora:
+  enabled: false           # Siap digunakan, disetel false di awal agar pasif
+  port: "COM5"             # Di Radxa nanti tinggal diubah ke /dev/ttyS4 tanpa ubah kode
+  baudrate: 9600
+  frequency: 923
+  tx_mode: "buffered"      # Pilihan: immediate / buffered / manual / disabled
+  buffer_size: 5           # Kirim jika sudah terkumpul 5 deteksi
+  flush_interval: 60       # Atau kirim jika data sudah tertahan selama 60 detik
+  retry: 3
+  timeout: 2
+
+database:
+  path: "data/birdsound.db"
+
+logging:
+  level: "INFO"

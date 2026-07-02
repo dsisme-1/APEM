@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEM - AI-Powered Ecoacoustic Monitor</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">🔊 APEM: AI-Powered Ecoacoustic Monitor</div>
+        <div id="system-status-badge" class="badge badge-idle">STATUS: IDLE</div>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="panel-left">
+            <div class="card">
+                <h3>🔴 Kontrol Pemantauan </h3>
+                <p class="description">Aktifkan mikrofon untuk memulai siklus pemantauan otomatis.</p>
+                <div class="control-actions">
+                    <button id="btn-start" class="btn btn-success" onclick="toggleMonitoring(true)">Mulai Monitoring</button>
+                    <button id="btn-stop" class="btn btn-danger" onclick="toggleMonitoring(false)" disabled>Hentikan</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📁 Analisis File WAV </h3>
+                <p class="description">Unggah rekaman audio dari laboratorium untuk pengujian.</p>
+                <form id="upload-form" onsubmit="handleManualUpload(event)">
+                    <input type="file" id="audio-file" accept=".wav" required>
+                    <button type="submit" id="btn-upload" class="btn btn-primary">Analisis Audio</button>
+                </form>
+                <div id="upload-result" class="upload-result-box hidden"></div>
+            </div>
+
+            <div class="card">
+                <h3>📻 Penyiapan Telemetri LoRa</h3>
+                <div class="lora-grid">
+                    <div class="lora-item"><strong>Status Transmisi:</strong> <span id="lora-status-text">Disabled</span></div>
+                    <div class="lora-item"><strong>Antrean Outbox:</strong> <span id="lora-queue-val" class="highlight">0 Paket</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel-right">
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <span class="metric-title">Deteksi Hari Ini</span>
+                    <span id="metric-today" class="metric-value">0</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">Variasi Spesies</span>
+                    <span id="metric-species" class="metric-value">0</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">Rata-rata Latensi</span>
+                    <span id="metric-latency" class="metric-value">0 ms</span>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h3>📈 Grafik Tren Aktivitas Suara Burung</h3>
+                <canvas id="trendsChart" height="100"></canvas>
+            </div>
+
+            <div class="card table-card">
+                <h3>📜 Riwayat Deteksi Spesies Burung</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Sumber Audio</th>
+                                <th>Spesies Teridentifikasi</th>
+                                <th>Confidence</th>
+                                <th>Latensi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detections-table-body">
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Memuat data dari SQLite...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
