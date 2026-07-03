@@ -241,6 +241,7 @@ models/*.pb
 models/*.h5
 # Model files
 models/*.txt
+logs/*.txt
 # Testing script
 cek_tensor.py
 

@@ -7,7 +7,7 @@ numpy>=2.0.0
 scipy>=1.14.0
 soundfile>=0.13.0
 sounddevice>=0.5.0        
-
+pyserial>=3.5
 PyYAML>=6.0.2
 
 # Catatan: Di laptop/PC development pakai tensorflow. 

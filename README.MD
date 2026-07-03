@@ -105,8 +105,8 @@ http://127.0.0.1:8000
 - ✅ Monitoring Session
 - ✅ State Machine
 - ✅ Duty Cycle
-- 🔄 LoRa Service
-- 🔄 Edge deployment
+- ✅ LoRa Service
+- ✅ Edge deployment
 
 ---
 
